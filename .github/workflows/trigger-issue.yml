@@ -1,0 +1,17 @@
+name: "Trigger labeled failure"
+on:
+  pull_request:
+    types: [opened, synchronize, labeled]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sample-github-runner:
+    name: Job in ubuntu-latest
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Ubuntu latest step
+        run: |
+          echo "Ubuntu latest" >> $GITHUB_STEP_SUMMARY
