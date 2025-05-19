@@ -1,0 +1,11 @@
+name: "Reusable Workflow Parser Issue"
+on:
+  workflow_call:
+
+jobs:
+  direct-job-with-confition:
+    # expected to skip, since `vars.SOME_JSON` is not defined
+    if: ${{ vars.SOME_JSON }}
+    uses: ./.github/workflows/print.yml
+    with:
+      value: ${{ fromJSON(vars.SOME_JSON) }}
