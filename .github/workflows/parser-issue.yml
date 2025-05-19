@@ -4,19 +4,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  direct-job-no-confition:
-    # expected to fail, since `vars.SOME_JSON` is not defined
-    uses: ./.github/workflows/print.yml
-    with:
-      value: ${{ fromJSON(vars.SOME_JSON) }}
-
-  direct-job-with-confition:
+  test:
     # expected to skip, since `vars.SOME_JSON` is not defined
     if: ${{ vars.SOME_JSON }}
     uses: ./.github/workflows/print.yml
     with:
       value: ${{ fromJSON(vars.SOME_JSON) }}
-
-  reusable-workflow-with-confition:
-    # expected to skip, since `vars.SOME_JSON` have not been defined but fails to parse :facepalm:
-    uses: ./.github/workflows/parser-issue-child.yml
